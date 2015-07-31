@@ -1,4 +1,11 @@
-﻿
+﻿/*****
+
+This file modified by Microsoft Corporation
+© 2015 Microsoft Corporation
+
+*****/
+
+
 using System.Threading;
 namespace ProtoBuf
 {
@@ -19,7 +26,7 @@ namespace ProtoBuf
 #endif
         }
         private BufferPool() { }
-        const int PoolSize = 20;
+        const int PoolSize = 128;
         internal const int BufferLength = 1024;
         private static readonly object[] pool = new object[PoolSize];
 

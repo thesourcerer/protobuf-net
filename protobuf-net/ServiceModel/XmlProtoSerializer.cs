@@ -1,9 +1,17 @@
-﻿#if (FEAT_SERVICEMODEL && PLAT_XMLSERIALIZER) || (SILVERLIGHT && !PHONE7)
+﻿/*****
+
+This file modified by Microsoft Corporation
+© 2015 Microsoft Corporation
+
+*****/
+
+#if (FEAT_SERVICEMODEL && PLAT_XMLSERIALIZER) || (SILVERLIGHT && !PHONE7)
 using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;
 using ProtoBuf.Meta;
 using System;
+using Microsoft.IO;
 
 namespace ProtoBuf.ServiceModel
 {
@@ -12,6 +20,7 @@ namespace ProtoBuf.ServiceModel
     /// </summary>
     public sealed class XmlProtoSerializer : XmlObjectSerializer
     {
+        private static readonly Microsoft.IO.RecyclableMemoryStreamManager MemoryStreamManager = new Microsoft.IO.RecyclableMemoryStreamManager();
         private readonly TypeModel model;
         private readonly int key;
         private readonly bool isList, isEnum;
@@ -113,7 +122,7 @@ namespace ProtoBuf.ServiceModel
             }
             else
             {
-                using (MemoryStream ms = new MemoryStream())
+                using (MemoryStream ms = MemoryStreamManager.GetStream())
                 {
                     if (isList)
                     {
