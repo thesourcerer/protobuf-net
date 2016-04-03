@@ -91,7 +91,7 @@ namespace ProtoBuf.ServiceModel
 
             isList = false;
             return -1;
-            
+
         }
         /// <summary>
         /// Ends an object in the output
@@ -187,7 +187,8 @@ namespace ProtoBuf.ServiceModel
 
             object result;
             Helpers.DebugAssert(reader.CanReadBinaryContent, "CanReadBinaryContent");
-            using (MemoryStream ms = new MemoryStream(reader.ReadContentAsBase64()))
+            byte[] contentBuffer = reader.ReadContentAsBase64();
+            using (MemoryStream ms = MemoryStreamManager.GetStream(null, contentBuffer, 0, contentBuffer.Length))
             {
                 if (isList || isEnum)
                 {
