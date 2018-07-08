@@ -1,3 +1,9 @@
+/*****
+
+This file modified by Microsoft Corporation
+© 2018 Microsoft Corporation
+
+*****/
 using System;
 
 namespace ProtoBuf
@@ -14,7 +20,7 @@ namespace ProtoBuf
         }
 
         private BufferPool() { }
-        private const int POOL_SIZE = 20;
+        private const int POOL_SIZE = 128;
         internal const int BUFFER_LENGTH = 1024;
         private static readonly CachedBuffer[] Pool = new CachedBuffer[POOL_SIZE];
 
